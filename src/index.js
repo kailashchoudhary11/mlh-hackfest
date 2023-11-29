@@ -19,8 +19,12 @@ client.on('messageCreate', (message) => {
   if (message.author.bot) {
     return;
   }
-  if (message.content == "hello") {
-    message.reply("hello");
+  if (message.content == "!hackathons") {
+    message.reply("Here is the list of upcoming hackathons");
+  } else if (message.content == "!ghw") {
+    message.reply("Here is the list of upcoming ghw");
+  } else if (message.content == "!fellowship") {
+    message.reply("Here is the list of upcoming fellowship");
   }
 });
 
