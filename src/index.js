@@ -1,4 +1,7 @@
 require("dotenv").config();
+const GHW = require('./db')
+const Fellowship = require('./db')
+const Hackathon = require('./db')
 
 const { Client, IntentsBitField } = require("discord.js");
 
