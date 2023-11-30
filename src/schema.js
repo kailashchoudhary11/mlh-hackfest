@@ -16,7 +16,7 @@ const newSchema = new mongoose.Schema({
         required: false,
     },
     endDate: {
-        type : Number,
+        type : String,
         required: false,
     },
     isOnline: {

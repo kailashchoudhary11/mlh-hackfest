@@ -1,3 +1,3 @@
 const date =new Date().getTime();
-console.log(date);
+console.log("Current Date from getCurr file",date);
 module.exports = {date};
