@@ -27,46 +27,69 @@ const newSchema = new mongoose.Schema({
 
 // Create collection
 const Hackathon = mongoose.model('Hackathon', newSchema)
+const insertHackathons = async () => {
+    try {
+        const count = await Hackathon.countDocuments();
+        if (count === 0) {
+            const result = await Hackathon.insertMany([
+                { name: "Hackfest-November", startDate: "1st November 2023", endDate: "1st December 2023", isOnline: true },
+                { name: "Turing HackX", startDate: "22nd December 2023", endDate: "23rd December 2023", isOnline: false },
+                { name: "Web3 Apps", startDate: "29th December 2023", endDate: "29th December 2023", isOnline: true }
+            ]);
+            console.log(result);
+        } else {
+            console.log('Hackathon data already exists.');
+        }
+    } catch (error) {
+        console.log('Error', error);
+    }
+};
 
-const insertHackathons = async()=>{
-    try{
-        const result = await Hackathon.insertMany([
-            {name: "Hackfest-November",startDate: "1st November 2023",endDate: "1st December 2023",isOnline: true},
-            {name: "Turing HackX",startDate: "22nd December 2023",endDate: "23rd December 2023",isOnline: false},
-            {name: "Web3 Apps",startDate: "29th December 2023",endDate: "29th December 2023",isOnline: true}
-        ])
-        console.log(result)
-    }
-    catch{
-        console.log('Error');
-    }
-}
+insertHackathons();
 
 const GHW = mongoose.model('GHW',newSchema)
 const insertGHW = async()=>{
     try {
-        const result = await GHW.insertMany([
-            {name: "Global Hack Week: Cloud",startDate: "4th December 2023",endDate: "11th December 2023",isOnline: true},
-            {name: "Global Hack Week: Beginners",startDate: "5th January 2024",endDate: "11th January 2023",isOnline: true},
-            {name: "Global Hack Week: AI/ML",startDate: "9th February 2023",endDate: "15th February 2023",isOnline: true},
-        ])
-        console.log(result)
+        const count = await GHW.countDocuments();
+        if(count==0)
+        {
+            const result = await GHW.insertMany([
+                {name: "Global Hack Week: Cloud",startDate: "4th December 2023",endDate: "11th December 2023",isOnline: true},
+                {name: "Global Hack Week: Beginners",startDate: "5th January 2024",endDate: "11th January 2023",isOnline: true},
+                {name: "Global Hack Week: AI/ML",startDate: "9th February 2023",endDate: "15th February 2023",isOnline: true},
+            ])
+            console.log(result)
+        }
+        else {
+            console.log('GHW data already exists.');
+        }
     } catch (error) {
         console.log('Error');
     }
 }
 
+insertGHW();
+
 const Fellowship = mongoose.model('Fellowship',newSchema)
 const insertFellowship = async()=>{
     try {
-        const result = await Fellowship.insertMany([
-            {name: "Spring 2024",startDate: "29th January 2024",endDate: "29th April 2024",isOnline: true},
-        ])
-        console.log(result)
+        const count = await Fellowship.countDocuments()
+        if(count==0){
+            const result = await Fellowship.insertMany([
+                {name: "Spring 2024",startDate: "29th January 2024",endDate: "29th April 2024",isOnline: true},
+            ])
+            console.log(result)
+        }
+        else
+        {
+            console.log('Fellowship data already exists.');
+        }
     } catch (error) {
         console.log('Error');
     }
 }
+
+insertFellowship();
 
 const getUpcomingHackathons=async()=>{
     const getHackathon = await Hackathon.find({isOnline: true});
@@ -86,10 +109,4 @@ const getUpcomingFellowships=async()=>{
     return getFellowship;
 }
 
-insertHackathons();
-insertGHW();
-insertFellowship();
-getUpcomingHackathons();
-getUpcomingGHWs();
-getUpcomingFellowships();
-module.exports = Hackathon,Fellowship,GHW;
+module.exports = {getUpcomingFellowships,getUpcomingGHWs,getUpcomingHackathons};
